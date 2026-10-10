@@ -27,29 +27,29 @@ class MainActivity : Activity() {
         ).toInt()
 
         // Colors
-        val bgMain = 0xFF121212
-        val cardBg = 0xFF1A1A1A
-        val white = 0xFFFFFFFF
-        val grey = 0xFFB3B3B3
-        val green = 0xFF1DB954
+        val bgMain = 0xFF121212.toInt()
+        val cardBg = 0xFF1A1A1A.toInt()
+        val white = 0xFFFFFFFF.toInt()
+        val grey = 0xFFB3B3B3.toInt()
+        val green = 0xFF1DB954.toInt()
 
         // Gradients for quick cards (6 items)
         val quickGradients = listOf(
-            intArrayOf(0xFF4776E6, 0xFF79BD9A),
-            intArrayOf(0xFFFF7E5F, 0xFFFFB567),
-            intArrayOf(0xFF667EEA, 0xFF764BA2),
-            intArrayOf(0xFFFC5C63, 0xFFFED85D),
-            intArrayOf(0xFF36D1DC, 0xFF5B86E5),
-            intArrayOf(0xFF00C9FF, 0xFF2C5364)
+            intArrayOf(0xFF4776E6.toInt(), 0xFF79BD9A.toInt()),
+            intArrayOf(0xFFFF7E5F.toInt(), 0xFFFFB567.toInt()),
+            intArrayOf(0xFF667EEA.toInt(), 0xFF764BA2.toInt()),
+            intArrayOf(0xFFFC5C63.toInt(), 0xFFFED85D.toInt()),
+            intArrayOf(0xFF36D1DC.toInt(), 0xFF5B86E5.toInt()),
+            intArrayOf(0xFF00C9FF.toInt(), 0xFF2C5364.toInt())
         )
         // Gradients for recent list (6 items)
         val recentGradients = listOf(
-            intArrayOf(0xFF8E2DE2, 0xFF4A00E0),
-            intArrayOf(0xFFFC466B, 0xFF3F5EFB),
-            intArrayOf(0xFF5CB85C, 0xFF79E2A0),
-            intArrayOf(0xFF4E54C8, 0xFF8F94FB),
-            intArrayOf(0xFFFC5C63, 0xFFFDCC5D),
-            intArrayOf(0xFF5D4037, 0xFF8D6E63)
+            intArrayOf(0xFF8E2DE2.toInt(), 0xFF4A00E0.toInt()),
+            intArrayOf(0xFFFC466B.toInt(), 0xFF3F5EFB.toInt()),
+            intArrayOf(0xFF5CB85C.toInt(), 0xFF79E2A0.toInt()),
+            intArrayOf(0xFF4E54C8.toInt(), 0xFF8F94FB.toInt()),
+            intArrayOf(0xFFFC5C63.toInt(), 0xFFFDCC5D.toInt()),
+            intArrayOf(0xFF5D4037.toInt(), 0xFF8D6E63.toInt())
         )
 
         // Root vertical LinearLayout
@@ -163,7 +163,7 @@ class MainActivity : Activity() {
             val cover = View(this).apply {
                 layoutParams = LinearLayout.LayoutParams(dp(56), dp(56))
                 val gd = GradientDrawable(
-                    GradientDrawable.Orientation.BR_GU, recentGradients[i]
+                    GradientDrawable.Orientation.BR_TL, recentGradients[i]
                 )
                 gd.cornerRadius = dp(8).toFloat()
                 setBackground(gd)
@@ -206,7 +206,6 @@ class MainActivity : Activity() {
                 // Update bottom player
                 playerTitle.text = "歌曲 $i"
                 // could update cover but keep simple
-                moreBtnVisibility = true // just to trigger UI? not needed
             }
             recentList.addView(row)
         }
@@ -215,7 +214,7 @@ class MainActivity : Activity() {
         // 4. Mini player at bottom
         val playerBar = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
-            setBackgroundColor(0xFF282828)
+            setBackgroundColor(0xFF282828.toInt())
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 dp(72)
@@ -243,7 +242,7 @@ class MainActivity : Activity() {
             layoutParams = LinearLayout.LayoutParams(dp(48), dp(48))
             val gd = GradientDrawable(
                 GradientDrawable.Orientation.BL_TR,
-                intArrayOf(0xFF555555, 0xFF888888)
+                intArrayOf(0xFF555555.toInt(), 0xFF888888.toInt())
             )
             gd.cornerRadius = dp(24).toFloat()
             setBackground(gd)
@@ -286,7 +285,7 @@ class MainActivity : Activity() {
         // 5. Bottom navigation
         val navBar = LinearLayout(this).apply {
             orientation = LinearLayout.HORIZONTAL
-            setBackgroundColor(0xFF0A0A0A)
+            setBackgroundColor(0xFF0A0A0A.toInt())
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 dp(56)
@@ -300,9 +299,9 @@ class MainActivity : Activity() {
                 setBackgroundColor(Color.TRANSPARENT)
                 setTextColor(if (idx == selectedNavIndex) green else grey)
                 setOnClickListener {
-                    _selectedNavIndex = idx
+                    selectedNavIndex = idx
                     // Update colors of all nav buttons
-                    for (i in navBar.childCount) {
+                    for (i in 0 until navBar.childCount) {
                         val b = navBar.getChildAt(i) as Button
                         b.setTextColor(if (i == idx) green else grey)
                     }
