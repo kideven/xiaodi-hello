@@ -11,6 +11,9 @@ import android.widget.*
 import kotlin.random.Random
 
 class MainActivity : Activity() {
+    // 真实歌单
+    private val songNames = listOf("夜曲", "晴天", "七里香", "稻香", "青花瓷", "告白气球")
+    private val artistNames = listOf("周杰伦", "周杰伦", "周杰伦", "周杰伦", "周杰伦", "周杰伦")
     private lateinit var progressBar: View
     private lateinit var playerTitle: TextView
     private lateinit var playerCover: View
@@ -19,6 +22,7 @@ class MainActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestWindowFeature(android.view.Window.FEATURE_NO_TITLE)
 
         // Helper for dp → px
         fun dp(px: Int) = TypedValue.applyDimension(
@@ -109,7 +113,7 @@ class MainActivity : Activity() {
                 }
                 // Title
                 val title = TextView(this@MainActivity).apply {
-                    text = "歌曲 $i"
+                    text = songNames[i]
                     setTextColor(white)
                     setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
                     setTypeface(typeface, android.graphics.Typeface.BOLD)
@@ -118,7 +122,7 @@ class MainActivity : Activity() {
                 }
                 // Artist
                 val artist = TextView(this@MainActivity).apply {
-                    text = "艺术家 $i"
+                    text = artistNames[i]
                     setTextColor(grey)
                     setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
                     setPadding(dp(4), 0, dp(4), dp(8))
@@ -179,12 +183,12 @@ class MainActivity : Activity() {
                 setPadding(dp(12), 0, 0, 0)
             }
             val tTitle = TextView(this).apply {
-                text = "歌曲 $i"
+                text = songNames[i]
                 setTextColor(white)
                 setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f)
             }
             val tArtist = TextView(this).apply {
-                text = "艺术家 $i"
+                text = artistNames[i]
                 setTextColor(grey)
                 setTextSize(TypedValue.COMPLEX_UNIT_SP, 13f)
             }
@@ -205,7 +209,7 @@ class MainActivity : Activity() {
             row.addView(more)
             row.setOnClickListener {
                 // Update bottom player
-                playerTitle.text = "歌曲 $i"
+                playerTitle.text = songNames[i]
                 // could update cover but keep simple
             }
             recentList.addView(row)
