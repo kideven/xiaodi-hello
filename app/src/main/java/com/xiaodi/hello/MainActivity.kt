@@ -6,6 +6,7 @@ import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.Gravity
+import android.view.View
 import android.widget.*
 import kotlin.random.Random
 
@@ -80,14 +81,14 @@ class MainActivity : Activity() {
         root.addView(greeting)
 
         // 2. Horizontal ScrollView with quick cards
-        val scroll = HorizontalScrollView(this).apply {
-            val container = LinearLayout(this).apply {
+        val scroll = HorizontalScrollView(this@MainActivity).apply {
+            val container = LinearLayout(this@MainActivity).apply {
                 orientation = LinearLayout.HORIZONTAL
                 setPadding(0, 0, dp(12), 0)
             }
             // Populate 6 cards
             for (i in 0 until 6) {
-                val card = LinearLayout(this).apply {
+                val card = LinearLayout(this@MainActivity).apply {
                     orientation = LinearLayout.VERTICAL
                     layoutParams = LinearLayout.LayoutParams(
                         dp(140), LinearLayout.LayoutParams.WRAP_CONTENT
@@ -95,7 +96,7 @@ class MainActivity : Activity() {
                     setPadding(dp(8), 0, dp(8), 0)
                 }
                 // Cover
-                val cover = View(this).apply {
+                val cover = View(this@MainActivity).apply {
                     layoutParams = LinearLayout.LayoutParams(
                         dp(140), dp(140)
                     )
@@ -107,7 +108,7 @@ class MainActivity : Activity() {
                     setBackground(gd)
                 }
                 // Title
-                val title = TextView(this).apply {
+                val title = TextView(this@MainActivity).apply {
                     text = "歌曲 $i"
                     setTextColor(white)
                     setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
@@ -116,7 +117,7 @@ class MainActivity : Activity() {
                     gravity = Gravity.CENTER
                 }
                 // Artist
-                val artist = TextView(this).apply {
+                val artist = TextView(this@MainActivity).apply {
                     text = "艺术家 $i"
                     setTextColor(grey)
                     setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
