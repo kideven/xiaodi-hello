@@ -156,17 +156,17 @@ class MainActivity : Activity() {
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 dpToPx(56f)
             )
-            val btn1 = Button(this).apply {
+            val btn1 = Button(this@MainActivity).apply {
                 text = "首页"
                 setTextColor(Color.GRAY)
                 setOnClickListener { Toast.makeText(this@MainActivity, "首页", Toast.LENGTH_SHORT).show() }
             }
-            val btn2 = Button(this).apply {
+            val btn2 = Button(this@MainActivity).apply {
                 text = "搜索"
                 setTextColor(Color.GRAY)
                 setOnClickListener { Toast.makeText(this@MainActivity, "搜索", Toast.LENGTH_SHORT).show() }
             }
-            val btn3 = Button(this).apply {
+            val btn3 = Button(this@MainActivity).apply {
                 text = "我的音乐库"
                 setTextColor(Color.GRAY)
                 setOnClickListener { Toast.makeText(this@MainActivity, "我的音乐库", Toast.LENGTH_SHORT).show() }
