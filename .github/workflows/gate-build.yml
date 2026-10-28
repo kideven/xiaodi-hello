@@ -15,10 +15,10 @@ jobs:
           path: report
       - name: Use debug signing
         run: mkdir -p ~/.gradle && printf 'icsopenvpnDebugSign=true\norg.gradle.jvmargs=-Xmx2048M\n' > ~/.gradle/gradle.properties
-       - name: Restore fixed debug keystore
-       run: |
-       mikdir -p ~/.android
-       base64 -d report/gate-assets/debug.keystore.b64 > ~/.android/debug.keystore
+      - name: Restore fixed debug keystore
+        run: |
+          mkdir -p ~/.android
+          base64 -d report/gate-assets/debug.keystore.b64 > ~/.android/debug.keystore
       - name: Clone upstream
         run: |
           git clone https://github.com/schwabe/ics-openvpn.git app
