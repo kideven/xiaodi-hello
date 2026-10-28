@@ -67,6 +67,35 @@ data class VlessNode(
                 null
             }
         }
+
+        /**
+         * Salvage a node from a pasted Clash proxy entry (the user may only
+         * have the node in Clash YAML form). Extracts uuid/server/port and,
+         * when present, ws-opts path and servername via simple regexes.
+         */
+        fun parseClashEntry(text: String): VlessNode? {
+            fun grab(pattern: String): String? =
+                Regex(pattern, RegexOption.MULTILINE).find(text)?.groupValues?.get(1)?.trim()
+                    ?.trim('"', '\'', ',')
+            val uuid = grab("""uuid:\s*([0-9a-fA-F-]{36})""") ?: return null
+            val server = grab("""server:\s*([A-Za-z0-9.-]+)""") ?: return null
+            val port = grab("""port:\s*(\d+)""")?.toIntOrNull() ?: 443
+            val path = grab("""path:\s*"?([^"\n]+)"?""")?.takeIf { it.isNotBlank() } ?: "/"
+            val sni = grab("""servername:\s*([A-Za-z0-9.-]+)""") ?: server
+            return try {
+                UUID.fromString(uuid)
+                VlessNode(uuid, server, port, path, sni)
+            } catch (e: Exception) {
+                null
+            }
+        }
+
+        /** Canonical share link for storage, whatever the input format was. */
+        fun VlessNode.toLink(): String {
+            val encPath = java.net.URLEncoder.encode(wsPath, "UTF-8")
+            return "vless://$uuid@$host:$port?encryption=none&security=tls" +
+                "&sni=$sni&type=ws&host=$host&path=$encPath#GateNode"
+        }
     }
 }
 

@@ -347,7 +347,7 @@ class GateListActivity : Activity() {
             orientation = android.widget.LinearLayout.VERTICAL
             setPadding(48, 16, 48, 0)
             addView(TextView(context).apply {
-                text = "把任意一个私人节点的 vless:// 链接粘贴进来（在 v2rayNG 里长按节点 → 分享 → 复制链接）。借道开启时，连接中继会先经这个节点出去，绕开直连干扰。只粘贴一次，之后一直有效。\n\n你的节点：vless-pages-b6c（主）/ vless-backup-9od / vless-eu / vless-asia，均为 .pages.dev 结尾，用哪个都行。"
+                text = "最省事：点下面的「从订阅自动获取」，App 自己去你的私人订阅里取一个节点，什么都不用粘。\n\n也可以手动粘贴：vless:// 链接，或者 Clash 配置里某个节点的那一段文字（含 uuid、server 的那几行），都能认。借道开启时，连接中继会先经这个节点出去，绕开直连干扰。设置一次，之后一直有效。"
             })
             addView(input)
         }
@@ -355,20 +355,82 @@ class GateListActivity : Activity() {
             .setTitle("借道设置")
             .setView(container)
             .setPositiveButton("保存") { _, _ ->
-                val link = input.text.toString().trim()
-                if (VlessNode.parseLink(link) == null) {
-                    Toast.makeText(this, "链接格式不对，没有保存", Toast.LENGTH_LONG).show()
+                val raw = input.text.toString().trim()
+                val node = VlessNode.parseLink(raw) ?: VlessNode.parseClashEntry(raw)
+                if (node == null) {
+                    Toast.makeText(this, "没认出这个格式，没有保存", Toast.LENGTH_LONG).show()
                 } else {
                     prefs.edit()
-                        .putString(PREF_VLESS_LINK, link)
+                        .putString(PREF_VLESS_LINK, with(VlessNode) { node.toLink() })
                         .putBoolean(PREF_BORROW_ENABLED, true)
                         .apply()
                     borrowCheck.isChecked = true
-                    Toast.makeText(this, "借道节点已保存", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "借道节点已保存：${node.host}", Toast.LENGTH_SHORT).show()
                 }
             }
+            .setNeutralButton("从订阅自动获取") { _, _ -> fetchBorrowLink() }
             .setNegativeButton("取消", null)
             .show()
+    }
+
+    /** Pull the first private-node link from the user's own subscription. */
+    private fun fetchBorrowLink() {
+        Toast.makeText(this, "正在从你的私人订阅获取节点…", Toast.LENGTH_SHORT).show()
+        executor.execute {
+            var node: VlessNode? = null
+            var lastError: Exception? = null
+            val candidates = mutableListOf<String>()
+            try {
+                candidates += fetchText("https://private-sub.pages.dev/plain")
+            } catch (e: Exception) {
+                lastError = e
+            }
+            if (extractVless(candidates.firstOrNull()) == null) {
+                try {
+                    val b64 = fetchText("https://private-sub.pages.dev/sub")
+                    candidates += String(
+                        android.util.Base64.decode(b64, android.util.Base64.DEFAULT),
+                        Charsets.UTF_8
+                    )
+                } catch (e: Exception) {
+                    lastError = e
+                }
+            }
+            for (text in candidates) {
+                val link = extractVless(text) ?: continue
+                node = VlessNode.parseLink(link)
+                if (node != null) break
+            }
+            val found = node
+            runOnUiThread {
+                if (found != null) {
+                    getSharedPreferences("gate_prefs", Context.MODE_PRIVATE).edit()
+                        .putString(PREF_VLESS_LINK, with(VlessNode) { found.toLink() })
+                        .putBoolean(PREF_BORROW_ENABLED, true)
+                        .apply()
+                    borrowCheck.isChecked = true
+                    Toast.makeText(
+                        this, "已自动获取借道节点：${found.host}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                } else {
+                    Toast.makeText(
+                        this,
+                        "自动获取失败：${lastError?.message ?: "订阅里没找到节点"}，可以手动粘贴",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+        }
+    }
+
+    private fun extractVless(text: String?): String? {
+        if (text == null) return null
+        for (line in text.split('\n', ' ', '\t', '\r')) {
+            val token = line.trim()
+            if (token.startsWith("vless://")) return token
+        }
+        return null
     }
 
     /**
