@@ -1,0 +1,65 @@
+name: GateBuild
+permissions:
+  contents: write
+on:
+  push:
+    branches: [gate-ci]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Checkout CI repo
+        uses: actions/checkout@v4
+        with:
+          path: report
+      - name: Use debug signing
+        run: mkdir -p ~/.gradle && printf 'icsopenvpnDebugSign=true\norg.gradle.jvmargs=-Xmx2048M\n' > ~/.gradle/gradle.properties
+      - name: Clone upstream
+        run: |
+          git clone https://github.com/schwabe/ics-openvpn.git app
+          git -C app checkout f669267e2547fddca04d0bc699739137085eb633
+          git -C app submodule update --init
+      - name: Set up JDK 25
+        uses: actions/setup-java@v4
+        with:
+          java-version: '25'
+          distribution: temurin
+          cache: gradle
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v4
+      - name: Build
+        id: build
+        run: |
+          set -o pipefail
+          cd app && ./gradlew :main:assembleUiOvpn23Release 2>&1 | tee /tmp/build.log
+      - name: Upload artifact (backup)
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gate-stock-apk
+          path: app/main/build/outputs/apk/**/*universal*.apk
+      - name: Report
+        if: always()
+        run: |
+          mkdir -p result
+          {
+            echo "outcome: ${{ steps.build.outcome }}"
+            echo "date: $(date -u +%FT%TZ)"
+            APK=$(find "$GITHUB_WORKSPACE/app/main/build/outputs/apk" -name '*universal*.apk' 2>/dev/null | head -1)
+            if [ -n "$APK" ]; then
+              echo "apk_path: $APK"
+              URL=$(curl -s -F reqtype=fileupload -F time=72h -F "fileToUpload=@$APK" https://litterbox.catbox.moe/resources/internals/api.php)
+              echo "apk_url: $URL"
+            fi
+          } > result/stock-build.txt
+          tail -n 300 /tmp/build.log > result/build-log-tail.txt || true
+          cat result/stock-build.txt
+          cd report
+          git config user.email ci@gate.local
+          git config user.name gate-ci
+          git checkout -B ci-results
+          cp ../result/stock-build.txt ../result/build-log-tail.txt .
+          git add stock-build.txt build-log-tail.txt
+          git commit -m "stock build report" || echo nothing-to-commit
+          git push -f origin ci-results
