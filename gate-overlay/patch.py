@@ -43,7 +43,30 @@ edit("main/src/ui/AndroidManifest.xml", [
 
 edit("main/build.gradle.kts", [
     ('        versionName = "0.7.69"',
-     '        applicationId = "com.even.gateclient"\n        versionName = "0.7.69-gate1"'),
+     '        applicationId = "com.even.gateclient"\n        versionName = "0.7.69-gate2"'),
+])
+
+# Gate borrowed-path: expose a static protect() hook so the embedded
+# VLESS underlay client can keep its socket out of the VPN tunnel.
+edit("main/src/main/java/de/blinkt/openvpn/core/OpenVPNService.java", [
+    ("public class OpenVPNService extends VpnService implements StateListener, Callback, ByteCountListener, IOpenVPNServiceInternal {",
+     """public class OpenVPNService extends VpnService implements StateListener, Callback, ByteCountListener, IOpenVPNServiceInternal {
+
+    // Gate: hook for the embedded underlay (borrowed path) client.
+    public static volatile OpenVPNService gateInstance;
+
+    public static boolean gateProtect(java.net.Socket socket) {
+        OpenVPNService svc = gateInstance;
+        if (svc == null)
+            return false;
+        try {
+            return svc.protect(socket);
+        } catch (Exception e) {
+            return false;
+        }
+    }"""),
+    ("    public void onCreate() {\n        super.onCreate();",
+     "    public void onCreate() {\n        super.onCreate();\n        gateInstance = this;"),
 ])
 
 edit("main/src/main/res/values/strings.xml", [

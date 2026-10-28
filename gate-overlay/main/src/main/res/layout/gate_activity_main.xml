@@ -29,6 +29,26 @@
             android:text="状态/断开" />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <CheckBox
+            android:id="@+id/borrowCheck"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="借道模式（连接先经私人节点出去）" />
+
+        <Button
+            android:id="@+id/borrowSettingsButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="借道设置" />
+    </LinearLayout>
+
     <TextView
         android:id="@+id/statusText"
         android:layout_width="match_parent"

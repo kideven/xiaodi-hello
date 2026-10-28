@@ -14,6 +14,8 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.BaseAdapter
 import android.widget.Button
+import android.widget.CheckBox
+import android.widget.EditText
 import android.widget.ListView
 import android.widget.ProgressBar
 import android.widget.Spinner
@@ -22,6 +24,7 @@ import android.widget.Toast
 import de.blinkt.openvpn.LaunchVPN
 import de.blinkt.openvpn.R
 import de.blinkt.openvpn.core.ConfigParser
+import de.blinkt.openvpn.core.Connection
 import de.blinkt.openvpn.core.ProfileManager
 import java.io.File
 import java.io.StringReader
@@ -42,6 +45,8 @@ class GateListActivity : Activity() {
     companion object {
         const val ALL_COUNTRIES = "全部"
         private const val CACHE_FILE = "server_list_cache.txt"
+        private const val PREF_BORROW_ENABLED = "borrow_enabled"
+        private const val PREF_VLESS_LINK = "vless_link"
     }
 
     private data class Source(
@@ -80,6 +85,8 @@ class GateListActivity : Activity() {
     private lateinit var retryButton: Button
     private lateinit var refreshButton: Button
     private lateinit var vpnUiButton: Button
+    private lateinit var borrowCheck: CheckBox
+    private lateinit var borrowSettingsButton: Button
     private lateinit var listView: ListView
 
     private var allServers: List<VpnServer> = emptyList()
@@ -96,7 +103,16 @@ class GateListActivity : Activity() {
         retryButton = findViewById(R.id.retryButton)
         refreshButton = findViewById(R.id.refreshButton)
         vpnUiButton = findViewById(R.id.vpnUiButton)
+        borrowCheck = findViewById(R.id.borrowCheck)
+        borrowSettingsButton = findViewById(R.id.borrowSettingsButton)
         listView = findViewById(R.id.serverList)
+
+        val prefs = getSharedPreferences("gate_prefs", Context.MODE_PRIVATE)
+        borrowCheck.isChecked = prefs.getBoolean(PREF_BORROW_ENABLED, true)
+        borrowCheck.setOnCheckedChangeListener { _, checked ->
+            prefs.edit().putBoolean(PREF_BORROW_ENABLED, checked).apply()
+        }
+        borrowSettingsButton.setOnClickListener { showBorrowSettings() }
 
         listView.adapter = listAdapter
         listView.setOnItemClickListener { _, _, position, _ ->
@@ -319,6 +335,42 @@ class GateListActivity : Activity() {
             .show()
     }
 
+    private fun showBorrowSettings() {
+        val prefs = getSharedPreferences("gate_prefs", Context.MODE_PRIVATE)
+        val input = EditText(this).apply {
+            hint = "vless://…"
+            setText(prefs.getString(PREF_VLESS_LINK, "") ?: "")
+            setSingleLine(false)
+            maxLines = 4
+        }
+        val container = android.widget.LinearLayout(this).apply {
+            orientation = android.widget.LinearLayout.VERTICAL
+            setPadding(48, 16, 48, 0)
+            addView(TextView(context).apply {
+                text = "把任意一个私人节点的 vless:// 链接粘贴进来（在 v2rayNG 里长按节点 → 分享 → 复制链接）。借道开启时，连接中继会先经这个节点出去，绕开直连干扰。只粘贴一次，之后一直有效。\n\n你的节点：vless-pages-b6c（主）/ vless-backup-9od / vless-eu / vless-asia，均为 .pages.dev 结尾，用哪个都行。"
+            })
+            addView(input)
+        }
+        AlertDialog.Builder(this)
+            .setTitle("借道设置")
+            .setView(container)
+            .setPositiveButton("保存") { _, _ ->
+                val link = input.text.toString().trim()
+                if (VlessNode.parseLink(link) == null) {
+                    Toast.makeText(this, "链接格式不对，没有保存", Toast.LENGTH_LONG).show()
+                } else {
+                    prefs.edit()
+                        .putString(PREF_VLESS_LINK, link)
+                        .putBoolean(PREF_BORROW_ENABLED, true)
+                        .apply()
+                    borrowCheck.isChecked = true
+                    Toast.makeText(this, "借道节点已保存", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .setNegativeButton("取消", null)
+            .show()
+    }
+
     /**
      * Connect through the integrated engine: parse the inline config into a
      * temporary VpnProfile and hand it to LaunchVPN (which runs the system
@@ -329,11 +381,46 @@ class GateListActivity : Activity() {
             Toast.makeText(this, "配置解码失败，无法连接", Toast.LENGTH_SHORT).show()
             return
         }
+        // Borrowed path: route the relay connection through the private
+        // node first (local SOCKS server backed by a VLESS+WS tunnel).
+        var borrowNode: VlessNode? = null
+        if (borrowCheck.isChecked) {
+            val link = getSharedPreferences("gate_prefs", Context.MODE_PRIVATE)
+                .getString(PREF_VLESS_LINK, "") ?: ""
+            borrowNode = VlessNode.parseLink(link)
+            if (borrowNode == null) {
+                Toast.makeText(
+                    this, "借道模式已开启，但还没填私人节点链接",
+                    Toast.LENGTH_LONG
+                ).show()
+                showBorrowSettings()
+                return
+            }
+            try {
+                GateSocksServer.ensureRunning(borrowNode)
+            } catch (e: Exception) {
+                Toast.makeText(this, "借道服务启动失败：${e.message}", Toast.LENGTH_LONG).show()
+                return
+            }
+        }
+
+        val effectiveConfig = if (borrowNode != null) {
+            config + "\nsocks-proxy 127.0.0.1 ${GateSocksServer.PORT}\n"
+        } else {
+            config
+        }
         try {
             val cp = ConfigParser()
-            cp.parseConfig(StringReader(config))
+            cp.parseConfig(StringReader(effectiveConfig))
             val vp = cp.convertProfile()
             vp.mName = "Gate ${server.countryShort} ${server.ip}"
+            if (borrowNode != null) {
+                for (c in vp.mConnections) {
+                    c.mProxyType = Connection.ProxyType.SOCKS5
+                    c.mProxyName = "127.0.0.1"
+                    c.mProxyPort = GateSocksServer.PORT.toString()
+                }
+            }
             val check = vp.checkProfile(this)
             if (check != R.string.no_error_found) {
                 Toast.makeText(this, "配置不可用：${getString(check)}", Toast.LENGTH_LONG).show()
