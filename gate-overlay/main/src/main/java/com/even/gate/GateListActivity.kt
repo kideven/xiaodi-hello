@@ -87,6 +87,7 @@ class GateListActivity : Activity() {
     private lateinit var vpnUiButton: Button
     private lateinit var borrowCheck: CheckBox
     private lateinit var borrowSettingsButton: Button
+    private lateinit var borrowDiagButton: Button
     private lateinit var listView: ListView
 
     private var allServers: List<VpnServer> = emptyList()
@@ -105,6 +106,7 @@ class GateListActivity : Activity() {
         vpnUiButton = findViewById(R.id.vpnUiButton)
         borrowCheck = findViewById(R.id.borrowCheck)
         borrowSettingsButton = findViewById(R.id.borrowSettingsButton)
+        borrowDiagButton = findViewById(R.id.borrowDiagButton)
         listView = findViewById(R.id.serverList)
 
         val prefs = getSharedPreferences("gate_prefs", Context.MODE_PRIVATE)
@@ -113,6 +115,7 @@ class GateListActivity : Activity() {
             prefs.edit().putBoolean(PREF_BORROW_ENABLED, checked).apply()
         }
         borrowSettingsButton.setOnClickListener { showBorrowSettings() }
+        borrowDiagButton.setOnClickListener { showBorrowDiag() }
 
         listView.adapter = listAdapter
         listView.setOnItemClickListener { _, _, position, _ ->
@@ -332,6 +335,27 @@ class GateListActivity : Activity() {
                 Toast.makeText(this, "配置已复制", Toast.LENGTH_SHORT).show()
             }
             .setNegativeButton("关闭", null)
+            .show()
+    }
+
+    private fun showBorrowDiag() {
+        val textView = TextView(this).apply {
+            text = GateDiag.dump()
+            textSize = 12f
+            setPadding(48, 24, 48, 24)
+            setTextIsSelectable(true)
+        }
+        val scroll = android.widget.ScrollView(this).apply { addView(textView) }
+        AlertDialog.Builder(this)
+            .setTitle("借道诊断")
+            .setView(scroll)
+            .setPositiveButton("关闭", null)
+            .setNeutralButton("复制") { _, _ ->
+                val cm = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                cm.setPrimaryClip(ClipData.newPlainText("GateDiag", GateDiag.dump()))
+                Toast.makeText(this, "诊断记录已复制", Toast.LENGTH_SHORT).show()
+            }
+            .setNegativeButton("清空") { _, _ -> GateDiag.clear() }
             .show()
     }
 

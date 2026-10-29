@@ -36,6 +36,7 @@ class GateSocksServer(private val node: VlessNode) {
             server.start()
             current = server
             currentNodeKey = key
+            GateDiag.log("借道服务启动，节点 ${node.host}:${node.port}，本地 SOCKS 127.0.0.1:$PORT")
             return server
         }
     }
@@ -127,11 +128,13 @@ class GateSocksServer(private val node: VlessNode) {
             readFully(cin, portBytes)
             val targetPort = (portBytes[0].toInt() and 0xff) shl 8 or
                 (portBytes[1].toInt() and 0xff)
+            GateDiag.log("SOCKS 请求目标：$targetHost:$targetPort")
 
             // Borrowed path: dial the relay through the private node.
             val t = VlessTunnel(node)
             tunnel = t
             t.open(targetHost, targetPort)
+            GateDiag.log("隧道已建立：$targetHost:$targetPort")
 
             // Success reply.
             cout.write(byteArrayOf(5, 0, 0, 1, 0, 0, 0, 0, 0, 0))
@@ -140,6 +143,7 @@ class GateSocksServer(private val node: VlessNode) {
             pumpBothWays(client, cin, cout, t)
         } catch (e: Exception) {
             // Any failure just drops this connection; OpenVPN will retry.
+            GateDiag.log("SOCKS 连接异常 ${e.javaClass.simpleName}: ${e.message}")
         } finally {
             try {
                 tunnel?.close()
@@ -154,13 +158,18 @@ class GateSocksServer(private val node: VlessNode) {
 
     private fun pumpBothWays(client: Socket, cin: InputStream, cout: OutputStream,
                              tunnel: VlessTunnel) {
+        val upBytes = java.util.concurrent.atomic.AtomicLong(0)
+        val downBytes = java.util.concurrent.atomic.AtomicLong(0)
         val up = thread(isDaemon = true, name = "gate-socks-up") {
             val buf = ByteArray(16 * 1024)
             try {
                 while (true) {
                     val n = cin.read(buf)
                     if (n < 0) break
-                    if (n > 0) tunnel.writeFrame(buf, 0, n)
+                    if (n > 0) {
+                        tunnel.writeFrame(buf, 0, n)
+                        upBytes.addAndGet(n.toLong())
+                    }
                 }
             } catch (_: Exception) {
             } finally {
@@ -175,10 +184,12 @@ class GateSocksServer(private val node: VlessNode) {
                 if (n > 0) {
                     cout.write(buf, 0, n)
                     cout.flush()
+                    downBytes.addAndGet(n.toLong())
                 }
             }
         } catch (_: Exception) {
         } finally {
+            GateDiag.log("连接结束：上行 ${upBytes.get()}B / 下行 ${downBytes.get()}B")
             try {
                 client.close()
             } catch (_: Exception) {

@@ -43,7 +43,7 @@ edit("main/src/ui/AndroidManifest.xml", [
 
 edit("main/build.gradle.kts", [
     ('        versionName = "0.7.69"',
-     '        applicationId = "com.even.gateclient"\n        versionName = "0.7.69-gate3"'),
+     '        applicationId = "com.even.gateclient"\n        versionName = "0.7.69-gate4"'),
 ])
 
 # Gate borrowed-path: expose a static protect() hook so the embedded

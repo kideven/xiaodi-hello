@@ -47,6 +47,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="借道设置" />
+
+        <Button
+            android:id="@+id/borrowDiagButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="借道诊断" />
     </LinearLayout>
 
     <TextView

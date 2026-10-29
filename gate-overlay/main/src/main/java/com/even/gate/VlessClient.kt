@@ -113,9 +113,27 @@ class VlessTunnel(private val node: VlessNode) {
     private val writeLock = Object()
     private val maskRandom = java.security.SecureRandom()
     private var responseHeaderPending = true
+    private var targetHost: String = ""
+    private var targetPort: Int = 0
+    private var headerSent = false
+    private var firstFrameLogged = false
 
-    /** Connect TLS + WS upgrade + send the VLESS request header for target. */
+    /** Connect TLS + WS upgrade. The VLESS request header is prepended to
+     *  the first data frame in writeFrame (same wire shape as the verified
+     *  node-monitor client, which sends header + first payload together). */
     fun open(targetHost: String, targetPort: Int) {
+        this.targetHost = targetHost
+        this.targetPort = targetPort
+        try {
+            openInternal(targetHost, targetPort)
+        } catch (e: Exception) {
+            GateDiag.log("VLESS 失败 ${e.javaClass.simpleName}: ${e.message}")
+            throw e
+        }
+    }
+
+    private fun openInternal(targetHost: String, targetPort: Int) {
+        GateDiag.log("VLESS 连接节点 ${node.host}:${node.port}（SNI=${node.sni} 路径=${node.wsPath}）目标 $targetHost:$targetPort")
         val raw = Socket()
         // Keep the underlay socket out of our own VPN tunnel once it is up.
         try {
@@ -130,6 +148,7 @@ class VlessTunnel(private val node: VlessNode) {
             serverNames = listOf(SNIHostName(node.sni))
         }
         tls.startHandshake()
+        GateDiag.log("TLS 握手完成")
         socket = tls
         val inp = BufferedInputStream(tls.inputStream, 32 * 1024)
         input = inp
@@ -151,6 +170,7 @@ class VlessTunnel(private val node: VlessNode) {
         output!!.flush()
 
         val statusLine = readHttpLine(inp)
+        GateDiag.log("WS 升级响应：$statusLine")
         if (statusLine == null || !statusLine.contains("101")) {
             throw IOException("WS upgrade failed: $statusLine")
         }
@@ -158,9 +178,7 @@ class VlessTunnel(private val node: VlessNode) {
             val line = readHttpLine(inp) ?: throw IOException("WS upgrade truncated")
             if (line.isEmpty()) break
         }
-
-        // VLESS request header as its own first frame (stream-parsed by the worker).
-        writeFrame(buildRequestHeader(targetHost, targetPort))
+        GateDiag.log("WS 升级成功，等待首个数据帧合并 VLESS 头发送")
     }
 
     private fun readHttpLine(inp: InputStream): String? {
@@ -233,8 +251,27 @@ class VlessTunnel(private val node: VlessNode) {
         }
     }
 
-    /** Send one binary frame (client frames are masked, per RFC 6455). */
+    /**
+     * Send payload through the tunnel. The first call prepends the VLESS
+     * request header to the payload in a single frame (header + first
+     * payload together, the shape the reference client uses).
+     */
     fun writeFrame(data: ByteArray, offset: Int = 0, length: Int = data.size) {
+        if (!headerSent) {
+            val header = buildRequestHeader(targetHost, targetPort)
+            val merged = ByteArray(header.size + length)
+            System.arraycopy(header, 0, merged, 0, header.size)
+            System.arraycopy(data, offset, merged, header.size, length)
+            headerSent = true
+            GateDiag.log("首帧发出：VLESS 头 ${header.size}B + 数据 ${length}B，数据开头 ${GateDiag.describeBytes(data, offset, length)}")
+            sendRawFrame(merged, 0, merged.size)
+            return
+        }
+        sendRawFrame(data, offset, length)
+    }
+
+    /** Send one binary frame (client frames are masked, per RFC 6455). */
+    private fun sendRawFrame(data: ByteArray, offset: Int = 0, length: Int = data.size) {
         val out = output ?: throw IOException("tunnel closed")
         synchronized(writeLock) {
             val mask = ByteArray(4).also { maskRandom.nextBytes(it) }
@@ -297,6 +334,10 @@ class VlessTunnel(private val node: VlessNode) {
                 0xA -> continue // pong, ignore
                 else -> {
                     var payload = frame.payload
+                    if (!firstFrameLogged) {
+                        firstFrameLogged = true
+                        GateDiag.log("首个回程帧 opcode=${frame.opcode} ${payload.size}B 开头 ${GateDiag.describeBytes(payload)}")
+                    }
                     if (responseHeaderPending) {
                         if (payload.size < 2) continue
                         val skip = 2 + (payload[1].toInt() and 0xff)
@@ -306,6 +347,7 @@ class VlessTunnel(private val node: VlessNode) {
                         }
                         payload = payload.copyOfRange(skip, payload.size)
                         responseHeaderPending = false
+                        GateDiag.log("剥掉 VLESS 响应头 ${skip}B 后，开头 ${GateDiag.describeBytes(payload)}")
                     }
                     if (payload.isEmpty()) continue
                     val n = minOf(payload.size, buffer.size)
