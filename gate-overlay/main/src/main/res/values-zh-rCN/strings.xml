@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Gate: Simplified Chinese overlay for the screens the user actually
-     touches (connection states, log window, profile list). Upstream ships
-     only zh-rTW; these keys win for zh-CN devices because they are the
-     closest locale match. -->
+     touches (connection states, log window, profile list, settings).
+     Upstream ships only zh-rTW; these keys win for zh-CN devices because
+     they are the closest locale match. -->
 <resources>
     <string name="openvpn_log">OpenVPN 日志</string>
     <string name="vpn_launch_title">正在连接 VPN…</string>
@@ -16,6 +16,11 @@
     <string name="cancel">取消</string>
     <string name="select">选择</string>
     <string name="no_data">无数据</string>
+    <string name="graph">流量图表</string>
+    <string name="generalsettings">设置</string>
+    <string name="faq">常见问题</string>
+    <string name="send_logfile">发送日志文件</string>
+    <string name="clear_log_on_connect">新连接时清空日志</string>
 
     <string name="state_connecting">正在连接</string>
     <string name="state_wait">等待服务器回复</string>
@@ -34,4 +39,31 @@
     <string name="state_nonetwork">等待可用网络</string>
     <string name="state_userpause">用户已请求暂停 VPN</string>
     <string name="state_screenoff">VPN 已暂停 - 屏幕关闭</string>
+
+    <!-- Settings screen (general_settings.xml) -->
+    <string name="appbehaviour">应用行为</string>
+    <string name="vpnbehaviour">VPN 行为</string>
+    <string name="show_log_window">显示日志窗口</string>
+    <string name="show_log_summary">连接时显示日志窗口。日志窗口也可以随时从通知栏状态打开。</string>
+    <string name="confirmations_title">关闭 VPN 连接确认</string>
+    <string name="confirmations_summary">（不推荐）连接/断开 VPN 时不再弹出确认。这样会关掉防止误断 VPN 连接的保护。</string>
+    <string name="defaultvpn">默认 VPN</string>
+    <string name="defaultvpnsummary">在需要默认 VPN 的场合使用。目前包括开机启动、始终开启的 VPN 和快捷设置磁贴。</string>
+    <string name="novpn_selected">未选择默认 VPN。请先在设置里指定一个默认 VPN。</string>
+    <string name="keep_vpn_connected">保持 VPN 连接</string>
+    <string name="keep_vpn_connected_summary">OpenVPN 会在系统启动时连接指定的 VPN，并努力保持 VPN 处于连接状态。</string>
+    <string name="encrypt_profiles">加密配置文件</string>
+    <string name="encrypt_profiles_summary">尝试加密存储中的配置文件（如果 Android 系统支持）</string>
+    <string name="local_network_permission">本地网络权限</string>
+    <string name="local_network_permission_summary">允许连接本地网络中的 VPN 服务器。</string>
+    <string name="clear_external_apps">清除允许的外部应用</string>
+    <string name="no_external_app_allowed">没有应用被允许使用外部 API</string>
+    <string name="netchange">网络变化时重连</string>
+    <string name="netchange_summary">开启后，网络状态发生变化时（例如 WiFi 与移动数据切换）会强制重新连接。</string>
+    <string name="screenoff_title">息屏后暂停 VPN 连接</string>
+    <string name="screenoff_summary">屏幕关闭且 60 秒内传输的数据少于 64 kB 时暂停 VPN。启用“持久隧道”选项时，暂停 VPN 会让设备完全没有网络连接；未启用时，设备只是没有 VPN 连接与保护。</string>
+    <string name="use_system_proxy">使用系统代理</string>
+    <string name="use_system_proxy_summary">使用系统范围的 HTTP/HTTPS 代理配置来建立连接。</string>
+    <string name="device_specific">设备专属选项</string>
+    <string name="osslspeedtest">OpenSSL 加密速度测试</string>
 </resources>
