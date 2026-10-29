@@ -1,0 +1,14 @@
+90:C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/crypto/ec/ecp_sm2p256.c:142:9: note: expanded from macro 'BN_MOD_INV'
+94:C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/crypto/ec/ecp_sm2p256.c:143:9: note: expanded from macro 'BN_MOD_INV'
+135:C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/crypto/ec/ecp_sm2p256.c:142:9: note: expanded from macro 'BN_MOD_INV'
+139:C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/crypto/ec/ecp_sm2p256.c:143:9: note: expanded from macro 'BN_MOD_INV'
+146:C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/crypto/threads_pthread.c:118:35: note: expanded from macro 'ATOMIC_SUB_FETCH'
+152:C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/crypto/threads_pthread.c:114:32: note: expanded from macro 'ATOMIC_LOAD_N'
+173:C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/crypto/threads_pthread.c:117:35: note: expanded from macro 'ATOMIC_ADD_FETCH'
+179:C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/crypto/threads_pthread.c:118:35: note: expanded from macro 'ATOMIC_SUB_FETCH'
+185:C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/crypto/threads_pthread.c:117:35: note: expanded from macro 'ATOMIC_ADD_FETCH'
+247:w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/activities/ConfigConverter.kt:153:13 'fun startActivityForResult(intent: Intent, requestCode: Int): Unit' is deprecated. This method has been deprecated in favor of using the Activity Result API
+321:Note: Some input files use or override a deprecated API.
+322:Note: Recompile with -Xlint:deprecation for details.
+323:Note: Some input files use unchecked or unsafe operations.
+324:Note: Recompile with -Xlint:unchecked for details.

@@ -1,0 +1,300 @@
+
+> Task :main:configureCMakeRelWithDebInfo[armeabi-v7a]
+C/C++: OpenVPN 2.x version icsopenvpn/v0.7.69-0-gc29ee42e4
+C/C++: OpenVPN 3.x version icsopenvpn/v0.7.69-0-g29f38575
+
+> Task :main:buildCMakeRelWithDebInfo[armeabi-v7a]
+C/C++: ninja: Entering directory `/home/runner/work/xiaodi-hello/xiaodi-hello/app/main/.cxx/RelWithDebInfo/4m3mq236/armeabi-v7a'
+C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/crypto/ec/ecp_sm2p256.c:56:25: warning: implicit conversion from 'unsigned long long' to 'BN_ULONG' (aka 'unsigned int') changes value from 18446744069414584319 to 4294967295 [-Wconstant-conversion]
+C/C++:    54 | ALIGN32 static const BN_ULONG def_p[P256_LIMBS] = {
+C/C++:       |                                                   ~
+C/C++:    55 |     0xffffffffffffffff, 0xffffffff00000000,
+C/C++:    56 |     0xffffffffffffffff, 0xfffffffeffffffff
+C/C++:       |                         ^~~~~~~~~~~~~~~~~~
+C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/crypto/ec/ecp_sm2p256.c:56:5: warning: implicit conversion from 'unsigned long long' to 'BN_ULONG' (aka 'unsigned int') changes value from 18446744073709551615 to 4294967295 [-Wconstant-conversion]
+C/C++:    54 | ALIGN32 static const BN_ULONG def_p[P256_LIMBS] = {
+C/C++:       |                                                   ~
+C/C++:    55 |     0xffffffffffffffff, 0xffffffff00000000,
+C/C++:    56 |     0xffffffffffffffff, 0xfffffffeffffffff
+C/C++:       |     ^~~~~~~~~~~~~~~~~~
+C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/crypto/ec/ecp_sm2p256.c:55:25: warning: implicit conversion from 'unsigned long long' to 'BN_ULONG' (aka 'unsigned int') changes value from 18446744069414584320 to 0 [-Wconstant-conversion]
+C/C++:    54 | ALIGN32 static const BN_ULONG def_p[P256_LIMBS] = {
+C/C++:       |                                                   ~
+C/C++:    55 |     0xffffffffffffffff, 0xffffffff00000000,
+C/C++:       |                         ^~~~~~~~~~~~~~~~~~
+C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/crypto/ec/ecp_sm2p256.c:55:5: warning: implicit conversion from 'unsigned long long' to 'BN_ULONG' (aka 'unsigned int') changes value from 18446744073709551615 to 4294967295 [-Wconstant-conversion]
+C/C++:    54 | ALIGN32 static const BN_ULONG def_p[P256_LIMBS] = {
+C/C++:       |                                                   ~
+C/C++:    55 |     0xffffffffffffffff, 0xffffffff00000000,
+C/C++:       |     ^~~~~~~~~~~~~~~~~~
+C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/crypto/ec/ecp_sm2p256.c:171:5: warning: 'memcpy' will always overflow; destination buffer has size 16, but size argument is 32 [-Wfortify-source]
+C/C++:   171 |     BN_MOD_INV(out, in, ecp_sm2p256_div_by_2, ecp_sm2p256_sub, def_p);
+C/C++:       |     ^
+C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/crypto/ec/ecp_sm2p256.c:142:9: note: expanded from macro 'BN_MOD_INV'
+C/C++:   142 |         memcpy(u, in, 32);                         \
+C/C++:       |         ^
+C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/crypto/ec/ecp_sm2p256.c:171:5: warning: 'memcpy' will always overflow; destination buffer has size 16, but size argument is 32 [-Wfortify-source]
+C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/crypto/ec/ecp_sm2p256.c:143:9: note: expanded from macro 'BN_MOD_INV'
+C/C++:   143 |         memcpy(v, mod, 32);                        \
+C/C++:       |         ^
+C/C++: 6 warnings generated.
+C/C++: In file included from /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/ssl/ssl_asn1.c:18:
+C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/include/crypto/asn1.h:45:5: warning: 'nonstring' attribute only applies to fields or variables of character array type; type is 'unsigned char *' [-Wignored-attributes]
+C/C++:    45 |     unsigned char *data OPENSSL_NONSTRING;
+C/C++:       |     ^                   ~~~~~~~~~~~~~~~~~
+C/C++: 1 warning generated.
+
+> Task :main:configureCMakeRelWithDebInfo[x86]
+C/C++: OpenVPN 2.x version icsopenvpn/v0.7.69-0-gc29ee42e4
+C/C++: OpenVPN 3.x version icsopenvpn/v0.7.69-0-g29f38575
+
+> Task :main:buildCMakeRelWithDebInfo[x86]
+C/C++: ninja: Entering directory `/home/runner/work/xiaodi-hello/xiaodi-hello/app/main/.cxx/RelWithDebInfo/4m3mq236/x86'
+C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/crypto/ec/ecp_sm2p256.c:56:25: warning: implicit conversion from 'unsigned long long' to 'BN_ULONG' (aka 'unsigned int') changes value from 18446744069414584319 to 4294967295 [-Wconstant-conversion]
+C/C++:    54 | ALIGN32 static const BN_ULONG def_p[P256_LIMBS] = {
+C/C++:       |                                                   ~
+C/C++:    55 |     0xffffffffffffffff, 0xffffffff00000000,
+C/C++:    56 |     0xffffffffffffffff, 0xfffffffeffffffff
+C/C++:       |                         ^~~~~~~~~~~~~~~~~~
+C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/crypto/ec/ecp_sm2p256.c:56:5: warning: implicit conversion from 'unsigned long long' to 'BN_ULONG' (aka 'unsigned int') changes value from 18446744073709551615 to 4294967295 [-Wconstant-conversion]
+C/C++:    54 | ALIGN32 static const BN_ULONG def_p[P256_LIMBS] = {
+C/C++:       |                                                   ~
+C/C++:    55 |     0xffffffffffffffff, 0xffffffff00000000,
+C/C++:    56 |     0xffffffffffffffff, 0xfffffffeffffffff
+C/C++:       |     ^~~~~~~~~~~~~~~~~~
+C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/crypto/ec/ecp_sm2p256.c:55:25: warning: implicit conversion from 'unsigned long long' to 'BN_ULONG' (aka 'unsigned int') changes value from 18446744069414584320 to 0 [-Wconstant-conversion]
+C/C++:    54 | ALIGN32 static const BN_ULONG def_p[P256_LIMBS] = {
+C/C++:       |                                                   ~
+C/C++:    55 |     0xffffffffffffffff, 0xffffffff00000000,
+C/C++:       |                         ^~~~~~~~~~~~~~~~~~
+C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/crypto/ec/ecp_sm2p256.c:55:5: warning: implicit conversion from 'unsigned long long' to 'BN_ULONG' (aka 'unsigned int') changes value from 18446744073709551615 to 4294967295 [-Wconstant-conversion]
+C/C++:    54 | ALIGN32 static const BN_ULONG def_p[P256_LIMBS] = {
+C/C++:       |                                                   ~
+C/C++:    55 |     0xffffffffffffffff, 0xffffffff00000000,
+C/C++:       |     ^~~~~~~~~~~~~~~~~~
+C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/crypto/ec/ecp_sm2p256.c:171:5: warning: 'memcpy' will always overflow; destination buffer has size 16, but size argument is 32 [-Wfortify-source]
+C/C++:   171 |     BN_MOD_INV(out, in, ecp_sm2p256_div_by_2, ecp_sm2p256_sub, def_p);
+C/C++:       |     ^
+C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/crypto/ec/ecp_sm2p256.c:142:9: note: expanded from macro 'BN_MOD_INV'
+C/C++:   142 |         memcpy(u, in, 32);                         \
+C/C++:       |         ^
+C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/crypto/ec/ecp_sm2p256.c:171:5: warning: 'memcpy' will always overflow; destination buffer has size 16, but size argument is 32 [-Wfortify-source]
+C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/crypto/ec/ecp_sm2p256.c:143:9: note: expanded from macro 'BN_MOD_INV'
+C/C++:   143 |         memcpy(v, mod, 32);                        \
+C/C++:       |         ^
+C/C++: 6 warnings generated.
+C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/crypto/threads_pthread.c:383:23: warning: misaligned atomic operation may incur significant performance penalty; the expected alignment (8 bytes) exceeds the actual alignment (4 bytes) [-Watomic-alignment]
+C/C++:   383 |                 ret = ATOMIC_SUB_FETCH(&data->thread_qps[i].qp->users,
+C/C++:       |                       ^
+C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/crypto/threads_pthread.c:118:35: note: expanded from macro 'ATOMIC_SUB_FETCH'
+C/C++:   118 | #define ATOMIC_SUB_FETCH(p, v, o) __atomic_sub_fetch(p, v, o)
+C/C++:       |                                   ^
+C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/crypto/threads_pthread.c:507:17: warning: misaligned atomic operation may incur significant performance penalty; the expected alignment (8 bytes) exceeds the actual alignment (4 bytes) [-Watomic-alignment]
+C/C++:   507 |         count = ATOMIC_LOAD_N(uint64_t, &qp->users, __ATOMIC_ACQUIRE);
+C/C++:       |                 ^
+C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/crypto/threads_pthread.c:114:32: note: expanded from macro 'ATOMIC_LOAD_N'
+C/C++:   114 | #define ATOMIC_LOAD_N(t, p, o) __atomic_load_n(p, o)
+C/C++:       |                                ^
+C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/crypto/threads_pthread.c:1085:16: warning: misaligned atomic operation may incur significant performance penalty; the expected alignment (8 bytes) exceeds the actual alignment (4 bytes) [-Watomic-alignment]
+C/C++:  1085 |         *ret = __atomic_add_fetch(val, op, __ATOMIC_ACQ_REL);
+C/C++:       |                ^
+C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/crypto/threads_pthread.c:1111:16: warning: misaligned atomic operation may incur significant performance penalty; the expected alignment (8 bytes) exceeds the actual alignment (4 bytes) [-Watomic-alignment]
+C/C++:  1111 |         *ret = __atomic_and_fetch(val, op, __ATOMIC_ACQ_REL);
+C/C++:       |                ^
+C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/crypto/threads_pthread.c:1137:16: warning: misaligned atomic operation may incur significant performance penalty; the expected alignment (8 bytes) exceeds the actual alignment (4 bytes) [-Watomic-alignment]
+C/C++:  1137 |         *ret = __atomic_or_fetch(val, op, __ATOMIC_ACQ_REL);
+C/C++:       |                ^
+C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/crypto/threads_pthread.c:1162:9: warning: misaligned atomic operation may incur significant performance penalty; the expected alignment (8 bytes) exceeds the actual alignment (4 bytes) [-Watomic-alignment]
+C/C++:  1162 |         __atomic_load(val, ret, __ATOMIC_ACQUIRE);
+C/C++:       |         ^
+C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/crypto/threads_pthread.c:1185:9: warning: misaligned atomic operation may incur significant performance penalty; the expected alignment (8 bytes) exceeds the actual alignment (4 bytes) [-Watomic-alignment]
+C/C++:  1185 |         __atomic_store(dst, &val, __ATOMIC_RELEASE);
+C/C++:       |         ^
+C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/crypto/threads_pthread.c:295:9: warning: misaligned atomic operation may incur significant performance penalty; the expected alignment (8 bytes) exceeds the actual alignment (4 bytes) [-Watomic-alignment]
+C/C++:   295 |         ATOMIC_ADD_FETCH(&lock->qp_group[qp_idx].users, (uint64_t)1,
+C/C++:       |         ^
+C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/crypto/threads_pthread.c:117:35: note: expanded from macro 'ATOMIC_ADD_FETCH'
+C/C++:   117 | #define ATOMIC_ADD_FETCH(p, v, o) __atomic_add_fetch(p, v, o)
+C/C++:       |                                   ^
+C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/crypto/threads_pthread.c:302:9: warning: misaligned atomic operation may incur significant performance penalty; the expected alignment (8 bytes) exceeds the actual alignment (4 bytes) [-Watomic-alignment]
+C/C++:   302 |         ATOMIC_SUB_FETCH(&lock->qp_group[qp_idx].users, (uint64_t)1,
+C/C++:       |         ^
+C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/crypto/threads_pthread.c:118:35: note: expanded from macro 'ATOMIC_SUB_FETCH'
+C/C++:   118 | #define ATOMIC_SUB_FETCH(p, v, o) __atomic_sub_fetch(p, v, o)
+C/C++:       |                                   ^
+C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/crypto/threads_pthread.c:440:5: warning: misaligned atomic operation may incur significant performance penalty; the expected alignment (8 bytes) exceeds the actual alignment (4 bytes) [-Watomic-alignment]
+C/C++:   440 |     ATOMIC_ADD_FETCH(&lock->qp_group[current_idx].users, (uint64_t)0,
+C/C++:       |     ^
+C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/crypto/threads_pthread.c:117:35: note: expanded from macro 'ATOMIC_ADD_FETCH'
+C/C++:   117 | #define ATOMIC_ADD_FETCH(p, v, o) __atomic_add_fetch(p, v, o)
+C/C++:       |                                   ^
+C/C++: 10 warnings generated.
+C/C++: In file included from /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/ssl/ssl_asn1.c:18:
+C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/include/crypto/asn1.h:45:5: warning: 'nonstring' attribute only applies to fields or variables of character array type; type is 'unsigned char *' [-Wignored-attributes]
+C/C++:    45 |     unsigned char *data OPENSSL_NONSTRING;
+C/C++:       |     ^                   ~~~~~~~~~~~~~~~~~
+C/C++: 1 warning generated.
+
+> Task :main:configureCMakeRelWithDebInfo[x86_64]
+C/C++: OpenVPN 2.x version icsopenvpn/v0.7.69-0-gc29ee42e4
+C/C++: OpenVPN 3.x version icsopenvpn/v0.7.69-0-g29f38575
+
+> Task :main:buildCMakeRelWithDebInfo[x86_64]
+C/C++: ninja: Entering directory `/home/runner/work/xiaodi-hello/xiaodi-hello/app/main/.cxx/RelWithDebInfo/4m3mq236/x86_64'
+C/C++: In file included from /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/ssl/ssl_asn1.c:18:
+C/C++: /home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/cpp/openssl/include/crypto/asn1.h:45:5: warning: 'nonstring' attribute only applies to fields or variables of character array type; type is 'unsigned char *' [-Wignored-attributes]
+C/C++:    45 |     unsigned char *data OPENSSL_NONSTRING;
+C/C++:       |     ^                   ~~~~~~~~~~~~~~~~~
+C/C++: 1 warning generated.
+
+> Task :main:preUiOvpn23ReleaseBuild UP-TO-DATE
+> Task :main:mergeUiOvpn23ReleaseJniLibFolders
+> Task :main:mergeUiOvpn23ReleaseNativeLibs
+> Task :main:checkUiOvpn23ReleaseDuplicateClasses
+> Task :main:stripUiOvpn23ReleaseDebugSymbols
+> Task :main:extractUiOvpn23ReleaseNativeSymbolTables
+
+> Task :main:generateOpenVPN3SwiguiOvpn23Release
+src/main/cpp/openvpn3/openvpn/client/dns_options.hpp:155: Warning 503: Can't wrap 'operator ==' unless renamed to a valid identifier.
+src/main/cpp/openvpn3/openvpn/client/dns_options.hpp:208: Warning 503: Can't wrap 'operator ==' unless renamed to a valid identifier.
+src/main/cpp/openvpn3/openvpn/client/dns_options.hpp:508: Warning 503: Can't wrap 'operator ==' unless renamed to a valid identifier.
+src/main/cpp/openvpn3/openvpn/client/dns_options.hpp:627: Warning 503: Can't wrap 'operator ==' unless renamed to a valid identifier.
+
+> Task :main:generateUiOvpn23ReleaseBuildConfig
+> Task :main:extractUiOvpn23ReleaseSupportedLocales
+> Task :main:mapUiOvpn23ReleaseSourceSetPaths
+> Task :main:compileUiOvpn23ReleaseAidl
+> Task :main:mergeUiOvpn23ReleaseNativeDebugMetadata
+> Task :main:generateUiOvpn23ReleaseLocaleConfig
+> Task :main:generateUiOvpn23ReleaseResources
+> Task :main:packageUiOvpn23ReleaseResources
+> Task :main:processUiOvpn23ReleaseNavigationResources
+> Task :main:javaPreCompileUiOvpn23Release
+> Task :main:checkUiOvpn23ReleaseAarMetadata
+> Task :main:compileUiOvpn23ReleaseNavigationResources
+> Task :main:parseUiOvpn23ReleaseLocalResources
+> Task :main:createUiOvpn23ReleaseCompatibleScreenManifests
+> Task :main:extractDeepLinksUiOvpn23Release
+> Task :main:processUiOvpn23ReleaseMainManifest
+> Task :main:generateUiOvpn23ReleaseRFile
+> Task :main:processUiOvpn23ReleaseManifest
+> Task :main:mergeUiOvpn23ReleaseResources
+> Task :main:desugarUiOvpn23ReleaseFileDependencies
+> Task :main:mergeUiOvpn23ReleaseStartupProfile
+> Task :main:compileUiOvpn23ReleaseKotlin
+> Task :main:processUiOvpn23ReleaseManifestForPackage
+> Task :main:mergeExtDexUiOvpn23Release
+
+> Task :main:compileUiOvpn23ReleaseKotlin
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/main/java/com/even/gate/VlessClient.kt:113:29 This class is not recommended for use in Kotlin. Use 'kotlin.Any' instead.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/activities/ConfigConverter.kt:153:13 'fun startActivityForResult(intent: Intent, requestCode: Int): Unit' is deprecated. This method has been deprecated in favor of using the Activity Result API
+      which brings increased type safety via an {@link ActivityResultContract} and the prebuilt
+      contracts for common intents available in
+      {@link androidx.activity.result.contract.ActivityResultContracts}, provides hooks for
+      testing, and allow receiving results in separate, testable classes independent from your
+      activity. Use
+      {@link #registerForActivityResult(ActivityResultContract, ActivityResultCallback)}
+      passing in a {@link StartActivityForResult} object for the {@link ActivityResultContract}.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/activities/ConfigConverter.kt:655:42 'fun getSerializable(p0: String?): Serializable?' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/activities/ConfigConverter.kt:658:45 'fun <T : Parcelable!> getParcelable(p0: String?): T?' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/activities/VPNPreferences.kt:77:52 'class PreferenceActivity : ListActivity, PreferenceFragment.OnPreferenceStartFragmentCallback' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/activities/VPNPreferences.kt:77:71 'static field EXTRA_SHOW_FRAGMENT_ARGUMENTS: String' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/activities/VPNPreferences.kt:153:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Add the '@Deprecated' annotation or suppress the diagnostic.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/activities/VPNPreferences.kt:155:15 'fun onBackPressed(): Unit' is deprecated. This method has been deprecated in favor of using the
+      {@link OnBackPressedDispatcher} via {@link #getOnBackPressedDispatcher()}.
+      The OnBackPressedDispatcher controls how back button events are dispatched
+      to one or more {@link OnBackPressedCallback} objects.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/activities/VPNPreferences.kt:183:30 'static field yes: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/activities/VPNPreferences.kt:185:51 'static field no: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/core/ProfileEncryption.kt:25:33 'class MasterKey : Any' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/core/ProfileEncryption.kt:29:30 'class MasterKey : Any' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/core/ProfileEncryption.kt:29:40 'constructor(p0: Context): MasterKey.Builder' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/core/ProfileEncryption.kt:30:37 'class MasterKey : Any' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/core/ProfileEncryption.kt:30:47 'enum class KeyScheme : Enum<MasterKey.KeyScheme!>' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/core/ProfileEncryption.kt:42:33 'class EncryptedFile : Any' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/core/ProfileEncryption.kt:42:47 'constructor(p0: Context, p1: File, p2: MasterKey, p3: EncryptedFile.FileEncryptionScheme): EncryptedFile.Builder' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/core/ProfileEncryption.kt:46:17 'class EncryptedFile : Any' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/core/ProfileEncryption.kt:46:31 'enum class FileEncryptionScheme : Enum<EncryptedFile.FileEncryptionScheme!>' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/core/ProfileEncryption.kt:54:33 'class EncryptedFile : Any' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/core/ProfileEncryption.kt:54:47 'constructor(p0: Context, p1: File, p2: MasterKey, p3: EncryptedFile.FileEncryptionScheme): EncryptedFile.Builder' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/core/ProfileEncryption.kt:58:17 'class EncryptedFile : Any' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/core/ProfileEncryption.kt:58:31 'enum class FileEncryptionScheme : Enum<EncryptedFile.FileEncryptionScheme!>' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/fragments/ImportRemoteConfig.kt:203:72 Elvis operator (?:) always returns the left operand of non-nullable type 'String'.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/fragments/ImportRemoteConfig.kt:340:44 Unnecessary safe call on a non-null receiver of type 'ResponseBody'.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/fragments/ImportRemoteConfig.kt:341:64 Java type mismatch: inferred type is 'String?', but 'CharSequence' was expected.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/fragments/KeyChainSettingsFragment.kt:73:33 'fun isInsideSecureHardware(): Boolean' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/fragments/KeyChainSettingsFragment.kt:80:30 'static fun isBoundKeyAlgorithm(p0: String): Boolean' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/fragments/KeyChainSettingsFragment.kt:194:24 'constructor(p0: Handler.Callback?): Handler' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/fragments/KeyChainSettingsFragment.kt:221:9 'fun startActivityForResult(p0: Intent, p1: Int): Unit' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/fragments/KeyChainSettingsFragment.kt:273:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Add the '@Deprecated' annotation or suppress the diagnostic.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/fragments/KeyChainSettingsFragment.kt:274:15 'fun onActivityResult(p0: Int, p1: Int, p2: Intent?): Unit' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/fragments/MinimalUI.kt:111:9 'fun setHasOptionsMenu(p0: Boolean): Unit' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/fragments/MinimalUI.kt:117:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Add the '@Deprecated' annotation or suppress the diagnostic.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/fragments/MinimalUI.kt:137:9 'static fun invalidateOptionsMenu(p0: Activity!): Boolean' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/fragments/MinimalUI.kt:141:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Add the '@Deprecated' annotation or suppress the diagnostic.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/fragments/MinimalUI.kt:147:14 'static fun invalidateOptionsMenu(p0: Activity!): Boolean' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/fragments/MinimalUI.kt:153:22 'fun onOptionsItemSelected(p0: MenuItem): Boolean' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/fragments/MinimalUI.kt:164:13 'static fun invalidateOptionsMenu(p0: Activity!): Boolean' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/fragments/PackageAdapter.kt:230:44 Unchecked cast of 'Any!' to 'Vector<ApplicationInfo>'.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/fragments/Settings_Allowed_Apps.kt:51:9 'fun setHasOptionsMenu(p0: Boolean): Unit' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/fragments/Settings_Allowed_Apps.kt:54:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Add the '@Deprecated' annotation or suppress the diagnostic.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/fragments/Settings_Allowed_Apps.kt:78:15 'fun onCreateOptionsMenu(p0: Menu, p1: MenuInflater): Unit' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/fragments/Settings_Authentication.kt:218:28 'fun setTargetFragment(p0: Fragment?, p1: Int): Unit' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/fragments/Settings_Connections.kt:27:9 'fun setHasOptionsMenu(p0: Boolean): Unit' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/fragments/Settings_Connections.kt:30:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Add the '@Deprecated' annotation or suppress the diagnostic.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/fragments/Settings_Connections.kt:33:15 'fun onCreateOptionsMenu(p0: Menu, p1: MenuInflater): Unit' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/fragments/Settings_Connections.kt:63:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Add the '@Deprecated' annotation or suppress the diagnostic.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/fragments/Settings_Connections.kt:65:22 'fun onOptionsItemSelected(p0: MenuItem): Boolean' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/fragments/Utils.kt:93:21 Expression is unused.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/fragments/VPNProfileList.kt:116:9 'fun setHasOptionsMenu(p0: Boolean): Unit' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/fragments/VPNProfileList.kt:256:18 'static fun fromHtml(p0: String!, p1: Html.ImageGetter!, p2: Html.TagHandler!): Spanned!' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/fragments/VPNProfileList.kt:263:18 'static fun fromHtml(p0: String!, p1: Html.ImageGetter!, p2: Html.TagHandler!): Spanned!' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/fragments/VPNProfileList.kt:322:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Add the '@Deprecated' annotation or suppress the diagnostic.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/fragments/VPNProfileList.kt:348:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Add the '@Deprecated' annotation or suppress the diagnostic.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/fragments/VPNProfileList.kt:360:26 'fun onOptionsItemSelected(p0: MenuItem): Boolean' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/fragments/VPNProfileList.kt:408:13 'fun startActivityForResult(p0: Intent, p1: Int): Unit' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/fragments/VPNProfileList.kt:417:9 'fun startActivityForResult(p0: Intent, p1: Int): Unit' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/fragments/VPNProfileList.kt:484:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Add the '@Deprecated' annotation or suppress the diagnostic.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/fragments/VPNProfileList.kt:485:15 'fun onActivityResult(p0: Int, p1: Int, p2: Intent?): Unit' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/fragments/VPNProfileList.kt:525:9 'fun startActivityForResult(p0: Intent, p1: Int): Unit' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/fragments/VPNProfileList.kt:536:9 'fun startActivityForResult(p0: Intent, p1: Int): Unit' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/main/src/ui/java/de/blinkt/openvpn/views/ScreenSlidePagerAdapter.kt:45:58 'fun newInstance(): CapturedType(out Fragment)!' is deprecated. Deprecated in Java.
+
+> Task :main:compileUiOvpn23ReleaseJavaWithJavac
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+
+> Task :main:generateUiOvpn23ReleaseAssets UP-TO-DATE
+> Task :main:mergeUiOvpn23ReleaseArtProfile
+> Task :main:mergeUiOvpn23ReleaseAssets
+> Task :main:compressUiOvpn23ReleaseAssets
+> Task :main:extractUiOvpn23ReleaseVersionControlInfo
+> Task :main:extractProguardFiles
+> Task :main:processUiOvpn23ReleaseResources
+> Task :main:generateUiOvpn23ReleaseLintVitalReportModel
+> Task :main:dexBuilderUiOvpn23Release
+> Task :main:mergeUiOvpn23ReleaseGlobalSynthetics
+> Task :main:mergeDexUiOvpn23Release
+> Task :main:processUiOvpn23ReleaseJavaRes
+> Task :main:optimizeUiOvpn23ReleaseResources
+> Task :main:collectUiOvpn23ReleaseDependencies
+> Task :main:compileUiOvpn23ReleaseArtProfile
+> Task :main:sdkUiOvpn23ReleaseDependencyData
+> Task :main:validateSigningUiOvpn23Release
+> Task :main:writeUiOvpn23ReleaseAppMetadata
+> Task :main:writeUiOvpn23ReleaseSigningConfigVersions
+> Task :main:mergeUiOvpn23ReleaseJavaResource
+> Task :main:lintVitalAnalyzeUiOvpn23Release
+> Task :main:lintVitalReportUiOvpn23Release
+> Task :main:lintVitalUiOvpn23Release
+> Task :main:packageUiOvpn23Release
+> Task :main:createUiOvpn23ReleaseApkListingFileRedirect
+> Task :main:assembleUiOvpn23Release
+
+[Incubating] Problems report is available at: file:///home/runner/work/xiaodi-hello/xiaodi-hello/app/build/reports/problems/problems-report.html
+
+BUILD SUCCESSFUL in 9m 13s
+63 actionable tasks: 63 executed
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.7.1/userguide/configuration_cache_enabling.html

@@ -1,0 +1,1 @@
+app/main/build/outputs/apk/uiOvpn23/release/main-ui-ovpn23-release.apk
